@@ -10,6 +10,7 @@ import javax.mail.Authenticator;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -23,6 +24,7 @@ public class MailBatch implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private static final String HOST = "smtp.hostinger.com";
+	private static final String PORT = "587";
 	private static final String USERNAME = "andrew.lopez@agentescd.com";
 	private static final String PASSWORD = "AlexLucas1955";
 
@@ -36,7 +38,8 @@ public class MailBatch implements Serializable {
 		DEFAULT_PROPERTIES = new Properties();
 
 		DEFAULT_PROPERTIES.put("mail.smtp.host", HOST);
-		DEFAULT_PROPERTIES.put("mail.smtp.auth", true);
+		DEFAULT_PROPERTIES.put("mail.smtp.port", PORT);
+		DEFAULT_PROPERTIES.put("mail.smtp.auth", "true");
 
 		// Initialize authenticator
 
@@ -82,7 +85,7 @@ public class MailBatch implements Serializable {
 		this.auth = auth;
 	}
 
-	public boolean sendNextRecipient() {
+	public boolean sendNextRecipient() throws MessagingException {
 		if (currentRecipientIndex + 1 >= recipients.size())
 			return false;
 
@@ -90,37 +93,25 @@ public class MailBatch implements Serializable {
 
 		MimeMessage message = getIndividualRecipientMessage();
 
-		System.out.println("Sent individual message to " + sentRecipients.get(0));
-
-//		try {
-//			Transport.send(message);
-//		} catch (MessagingException e) {
-//			e.printStackTrace();
-//		}
+		Transport.send(message);
 
 		for (MailBatchListener listener : listeners)
 			listener.onOneMailSent(this, sentRecipients);
-		
+
 		currentRecipientIndex += sentRecipients.size();
 
 		return true;
 	}
 
-	public boolean sendAll() {
+	public boolean sendAll() throws MessagingException {
 		if (currentRecipientIndex + 1 >= recipients.size())
 			return false;
 
-		List<Recipient> sentRecipients = recipients.subList(currentRecipientIndex, currentRecipientIndex + 1);
+		List<Recipient> sentRecipients = recipients.subList(currentRecipientIndex, recipients.size());
 
 		MimeMessage message = getAllRecipientMessage();
 
-		System.out.println("Sent message to many");
-
-//		try {
-//			Transport.send(message);
-//		} catch (MessagingException e) {
-//			e.printStackTrace();
-//		}
+		Transport.send(message);
 
 		for (MailBatchListener listener : listeners)
 			listener.onAllMailSent(this, sentRecipients);
@@ -160,9 +151,9 @@ public class MailBatch implements Serializable {
 			String recipientEmails = "";
 
 			for (int i = currentRecipientIndex; i < recipients.size(); ++i)
-				recipientEmails += recipients.get(currentRecipientIndex).getData("email") + ",";
+				recipientEmails += recipients.get(i).getData("email") + ", ";
 
-			recipientEmails = recipientEmails.substring(0, recipientEmails.length() - 1);
+			recipientEmails = recipientEmails.substring(0, recipientEmails.length() - 3);
 
 			message.addRecipients(RecipientType.BCC, InternetAddress.parse(recipientEmails));
 

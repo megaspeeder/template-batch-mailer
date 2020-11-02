@@ -91,9 +91,8 @@ public class TBMModel implements MailBatchListener {
 			getColumnNames(sheet);
 
 			getRecipients(sheet);
-
-			for (TBMModelListener listner : modelListenerList)
-				listner.onRecipientListLoaded(columnNames, recipientList);
+			
+			System.out.println(recipientList.size());
 
 			workbook.close();
 			fis.close();
@@ -107,6 +106,8 @@ public class TBMModel implements MailBatchListener {
 		DataFormatter df = new DataFormatter();
 		Row row = sheet.getRow(0);
 
+		columnNames = new LinkedList<String>();
+		
 		Iterator<Cell> cellIterator = row.cellIterator();
 
 		while (cellIterator.hasNext()) {
@@ -132,6 +133,9 @@ public class TBMModel implements MailBatchListener {
 
 			recipientList.add(getRecipient(row));
 		}
+		
+		for (TBMModelListener listener : modelListenerList)
+			listener.onRecipientListLoaded(columnNames, recipientList);
 	}
 
 	private Recipient getRecipient(Row row) {
@@ -189,7 +193,7 @@ public class TBMModel implements MailBatchListener {
 		recipientList.clear();
 
 		for (TBMModelListener listener : modelListenerList) {
-			listener.onRecipientsDeleted(columnNames, modelListenerList);
+			listener.onRecipientsDeleted(columnNames, recipientList);
 		}
 	}
 
@@ -236,10 +240,16 @@ public class TBMModel implements MailBatchListener {
 	@Override
 	public void onOneMailSent(MailBatch mailBatch, List<Recipient> sentRecipients) {
 		recipientList.removeAll(sentRecipients);
+		
+		for (TBMModelListener listener : modelListenerList) 
+			listener.onRecipientsDeleted(columnNames, sentRecipients);
 	}
 
 	@Override
 	public void onAllMailSent(MailBatch mailBatch, List<Recipient> sentRecipients) {
 		recipientList.removeAll(sentRecipients);
+		
+		for (TBMModelListener listener : modelListenerList) 
+			listener.onRecipientsDeleted(columnNames, sentRecipients);
 	}
 }

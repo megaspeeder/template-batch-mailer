@@ -11,7 +11,7 @@ public interface TBMModelListener {
 
 	void onTemplateLoaded(Template template);
 
-	void onRecipientsDeleted(List<String> columnNames, List<TBMModelListener> modelListenerList);
+	void onRecipientsDeleted(List<String> columnNames, List<Recipient> recipientList);
 
 	void onTemplateDeleted(Template template);
 	

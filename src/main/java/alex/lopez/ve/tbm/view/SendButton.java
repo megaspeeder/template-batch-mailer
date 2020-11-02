@@ -30,7 +30,7 @@ public class SendButton extends JButton implements Initialisable {
 			if (choice == JOptionPane.YES_OPTION) {
 				try {
 					ica.sendMail();
-					JOptionPane.showConfirmDialog(null, "Mail sent!", "Confirm", JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showConfirmDialog(null, "Mail sent!", "Confirm", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 				} catch (Exception e) {
 					JOptionPane optionPane = new JOptionPane("Could not send mail:" + e.getMessage(),
 							JOptionPane.ERROR_MESSAGE);

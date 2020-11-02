@@ -3,6 +3,8 @@ package alex.lopez.ve.tbm.control;
 import java.io.File;
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import alex.lopez.ve.tbm.interfaces.IControllerAccess;
 import alex.lopez.ve.tbm.interfaces.TBMModelListener;
 import alex.lopez.ve.tbm.model.Recipient;
@@ -43,7 +45,7 @@ public class TBMController implements IControllerAccess {
 	}
 
 	@Override
-	public void sendMail() {
+	public void sendMail() throws MessagingException {
 		if (!model.hasRecipients())
 			throw new IllegalStateException("Missing recipients");
 		if (!model.hasTemplate())
@@ -53,13 +55,11 @@ public class TBMController implements IControllerAccess {
 
 		mailer.scheduleSendMessage();
 
-		while (mailer.canSendWholeBatch())
+		while (mailer.hasRemainingBatches() && mailer.canSendWholeBatch())
 			mailer.sendWholeBatch();
 
-		while (model.canSendMessage())
+		while (model.hasRemainingMessages() && model.canSendMessage())
 			mailer.sendOne();
-		
-		System.out.println("Sent!");
 	}
 
 	@Override
@@ -101,6 +101,11 @@ public class TBMController implements IControllerAccess {
 	public void removeRecipients(List<Recipient> batchRecipients) {
 		for (Recipient recipient : batchRecipients)
 			model.removeRecipient(recipient);
+	}
+
+	@Override
+	public TBMModel getModel() {
+		return model;
 	}
 
 }

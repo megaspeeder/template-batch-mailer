@@ -127,7 +127,7 @@ public class TBMRecipientPanel extends JPanel implements Initialisable, TBMModel
 	}
 
 	@Override
-	public void onRecipientsDeleted(List<String> columnNames, List<TBMModelListener> modelListenerList) {
+	public void onRecipientsDeleted(List<String> columnNames, List<Recipient> recipientList) {
 		table.setModel(new RecipientTableModel());
 	}
 

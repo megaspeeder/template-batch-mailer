@@ -11,6 +11,8 @@ import java.io.OutputStream;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import alex.lopez.ve.tbm.interfaces.IControllerAccess;
 import alex.lopez.ve.tbm.interfaces.TBMWindowListener;
 import alex.lopez.ve.tbm.model.Recipient;
@@ -27,7 +29,7 @@ public class Mailer implements TBMWindowListener {
 		loadBatches();
 	}
 
-	public void sendOne() {
+	public void sendOne() throws MessagingException {
 		if(scheduledBatchQueue.isEmpty())
 			return;
 		
@@ -42,7 +44,7 @@ public class Mailer implements TBMWindowListener {
 			scheduledBatchQueue.remove(0);
 	}
 
-	public void sendWholeBatch() {
+	public void sendWholeBatch() throws MessagingException {
 		if(scheduledBatchQueue.isEmpty())
 			return;
 		
@@ -73,6 +75,8 @@ public class Mailer implements TBMWindowListener {
 
 			MailBatch batch = new MailBatch(subList, ica.getTemplate());
 
+			batch.addListener(ica.getModel());
+			
 			newBatches.add(batch);
 			processedRecipients.addAll(subList);
 		}
@@ -80,33 +84,6 @@ public class Mailer implements TBMWindowListener {
 		ica.removeRecipients(processedRecipients);
 
 		return newBatches;
-
-		// --------------------------------------------------
-
-		/*
-		 * List<MailBatch> batchQueue = new LinkedList<MailBatch>(); Template template =
-		 * ica.getTemplate();
-		 * 
-		 * int numberOfRecipients = recipients.size(); int batchSize =
-		 * ica.getMailLimit(); int numBatches = (int) Math.ceil((double)
-		 * numberOfRecipients / (double) batchSize);
-		 * 
-		 * for (int processedBatches = 0; processedBatches < numBatches;
-		 * ++processedBatches) { boolean wholeBatch = (numberOfRecipients -
-		 * processedBatches * batchSize) > batchSize; int lowerBound = processedBatches
-		 * * batchSize; int upperBound = (wholeBatch) ? batchSize : recipients.size();
-		 * 
-		 * List<Recipient> batchRecipients = new
-		 * LinkedList<Recipient>(recipients.subList(lowerBound, upperBound));
-		 * 
-		 * MailBatch batch = new MailBatch(batchRecipients, template);
-		 * 
-		 * batchQueue.add(batch);
-		 * 
-		 * ica.removeRecipients(batchRecipients); }
-		 * 
-		 * return batchQueue;
-		 */
 	}
 
 	private void saveBatches() {
@@ -161,5 +138,9 @@ public class Mailer implements TBMWindowListener {
 
 	public boolean canSendWholeBatch() {
 		return scheduledBatchQueue.get(0).getRemainingRecipients().size() < ica.getNumberAvailableMails();
+	}
+
+	public boolean hasRemainingBatches() {
+		return !scheduledBatchQueue.isEmpty();
 	}
 }

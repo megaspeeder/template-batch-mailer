@@ -47,6 +47,8 @@ public class TBMTableSwingWorker extends SwingWorker<RecipientTableModel, Recipi
 
 		Thread.sleep(5L);
 
+		model.deleteAllRows();
+		
 		for (int i = 0; i < recipientList.size(); ++i) {
 			publish(recipientList.get(i));
 			Thread.sleep(5L);

@@ -6,9 +6,11 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
+import alex.lopez.ve.tbm.interfaces.TBMModelListener;
 import alex.lopez.ve.tbm.model.Recipient;
+import alex.lopez.ve.tbm.model.Template;
 
-public class RecipientTableModel extends AbstractTableModel {
+public class RecipientTableModel extends AbstractTableModel implements TBMModelListener {
 	private static final long serialVersionUID = 2477125538272279353L;
 
 	private List<Recipient> recipientList;
@@ -21,6 +23,11 @@ public class RecipientTableModel extends AbstractTableModel {
 	public RecipientTableModel(List<Recipient> recipientList, List<String> columnNames) {
 		this.recipientList = recipientList;
 		this.columnNames = columnNames;
+	}
+	
+	public void deleteAllRows() {
+		this.recipientList = new LinkedList<Recipient>();
+		fireTableDataChanged();
 	}
 
 	@Override
@@ -90,5 +97,29 @@ public class RecipientTableModel extends AbstractTableModel {
 			recipientList.remove(selectedRows[i]);
 			fireTableRowsDeleted(selectedRows[i], selectedRows[i]);
 		}
+	}
+
+	@Override
+	public void onRecipientListLoaded(List<String> columnNames, List<Recipient> recipientList) {
+		this.recipientList = recipientList;
+		this.columnNames = columnNames;
+		fireTableDataChanged();
+	}
+
+	@Override
+	public void onTemplateLoaded(Template template) {
+		
+	}
+
+	@Override
+	public void onRecipientsDeleted(List<String> columnNames, List<Recipient> recipientList) {
+		this.recipientList = recipientList;
+		this.columnNames = columnNames;
+		fireTableDataChanged();
+	}
+
+	@Override
+	public void onTemplateDeleted(Template template) {
+		
 	}
 }

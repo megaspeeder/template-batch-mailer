@@ -109,11 +109,6 @@ public class TBMTemplatePanel extends JPanel implements Initialisable, TBMModelL
 	}
 
 	@Override
-	public void onRecipientsDeleted(List<String> columnNames, List<TBMModelListener> modelListenerList) {
-
-	}
-
-	@Override
 	public void onTemplateDeleted(Template template) {
 		content.setText("");
 	}
@@ -125,6 +120,12 @@ public class TBMTemplatePanel extends JPanel implements Initialisable, TBMModelL
 		Template template = new Template(headerStr, contentStr);
 
 		ica.setTemplate(template);
+	}
+
+	@Override
+	public void onRecipientsDeleted(List<String> columnNames, List<Recipient> recipientList) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
