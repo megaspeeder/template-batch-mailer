@@ -1,0 +1,11 @@
+package alex.lopez.ve.tbm.model;
+
+import org.apache.poi.ss.usermodel.Workbook;
+
+public class Template {
+
+	public Template(Workbook workbook) {
+		// TODO Auto-generated constructor stub
+	}
+
+}

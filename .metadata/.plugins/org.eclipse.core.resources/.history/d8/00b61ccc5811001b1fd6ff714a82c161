@@ -1,0 +1,25 @@
+package alex.lopez.ve.tbm.view;
+
+import java.awt.BorderLayout;
+
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+
+import alex.lopez.ve.tbm.interfaces.Initialisable;
+
+public class TBMTemplatePanel extends JPanel implements Initialisable {
+	
+	private static final long serialVersionUID = 6884330342883394043L;
+
+	public TBMTemplatePanel() {
+		initialise();
+	}
+	
+	@Override
+	public void initialise() {
+		setLayout(new BorderLayout());
+		
+		
+	}
+
+}

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="hugo.main.ProfesorAuxiliar"/>
+    <fullyQualifiedTypeName name="hugo.main.RuidoObserver"/>
+    <fullyQualifiedTypeName name="javax.swing.JFrame"/>
+    <fullyQualifiedTypeName name="javax.swing.JSeparator"/>
+    <fullyQualifiedTypeName name="javax.swing.JSplitPane"/>
+    <fullyQualifiedTypeName name="alex.lopez.ve.tbm.interfaces.Initialisable"/>
+    <fullyQualifiedTypeName name="alex.lopez.ve.tbm.view.TBMButtonPanel"/>
+    <fullyQualifiedTypeName name="alex.lopez.ve.tbm.view.CheckboxListCellRenderer"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="java.awt.List"/>
+    <fullyQualifiedTypeName name="org.apache.commons.collections4.map.HashedMap"/>
+    <fullyQualifiedTypeName name="alex.lopez.ve.tbm.view.RecipientTableModel"/>
+    <fullyQualifiedTypeName name="javax.swing.event.TableModelListener"/>
+    <fullyQualifiedTypeName name="java.util.LinkedList"/>
+    <fullyQualifiedTypeName name="java.lang.FunctionalInterface"/>
+    <fullyQualifiedTypeName name="com.sun.org.apache.xpath.internal.operations.Bool"/>
+    <fullyQualifiedTypeName name="javax.swing.JTextArea"/>
+    <fullyQualifiedTypeName name="java.awt.BorderLayout"/>
+    <fullyQualifiedTypeName name="javax.swing.BorderFactory"/>
+    <fullyQualifiedTypeName name="java.awt.Color"/>
+    <fullyQualifiedTypeName name="javax.swing.UIManager"/>
+    <fullyQualifiedTypeName name="javax.swing.JButton"/>
+    <fullyQualifiedTypeName name="java.awt.FlowLayout"/>
+    <fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
+    <fullyQualifiedTypeName name="javax.swing.JMenuItem"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="alex.lopez.ve.tbm.interfaces.IControllerAccess"/>
+    <fullyQualifiedTypeName name="javax.swing.JFileChooser"/>
+    <fullyQualifiedTypeName name="javax.swing.JDialog"/>
+    <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
+    <fullyQualifiedTypeName name="java.lang.IllegalArgumentException"/>
+    <fullyQualifiedTypeName name="java.io.FileInputStream"/>
+    <fullyQualifiedTypeName name="java.io.File"/>
+    <fullyQualifiedTypeName name="java.util.Iterator"/>
+    <fullyQualifiedTypeName name="alex.lopez.ve.tbm.model.Recipient"/>
+</qualifiedTypeNameHistroy>

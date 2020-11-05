@@ -1,0 +1,95 @@
+package alex.lopez.ve.tbm.view;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableModel;
+
+import org.apache.commons.math3.util.Pair;
+
+import alex.lopez.ve.tbm.model.Recipient;
+
+public class RecipientTableModel implements TableModel {
+
+	private static final String[] COLUMN_NAMES = { "Email", "First Name", "First Surname", "Second Surname",
+			"Account Type", "Company", "Role", "Number of Users", "Business Area", "Telephone Number", "Enabled" };
+
+	private List<Recipient> recipientList;
+	private List<TableModelListener> tableModelListenerList;
+
+	public RecipientTableModel() {
+		recipientList = new ArrayList<Recipient>();
+		tableModelListenerList = new LinkedList<TableModelListener>();
+
+		recipientList.add(new Recipient("a", "b", "c", "d", "e", "f", "g", 1, "i", "j", true));
+		recipientList.add(new Recipient("a", "b", "c", "d", "e", "f", "g", 1, "i", "j", true));
+		recipientList.add(new Recipient("a", "b", "c", "d", "e", "f", "g", 1, "i", "j", true));
+		recipientList.add(new Recipient("a", "b", "c", "d", "e", "f", "g", 1, "i", "j", true));
+		recipientList.add(new Recipient("a", "b", "c", "d", "e", "f", "g", 1, "i", "j", true));
+	}
+
+	@Override
+	public int getRowCount() {
+		return recipientList.size();
+	}
+
+	@Override
+	public int getColumnCount() {
+		return COLUMN_NAMES.length;
+	}
+
+	@Override
+	public String getColumnName(int columnIndex) {
+		return COLUMN_NAMES[columnIndex];
+	}
+
+	@Override
+	public Class<?> getColumnClass(int columnIndex) {
+		return String.class;
+	}
+
+	@Override
+	public boolean isCellEditable(int rowIndex, int columnIndex) {
+		return false;
+	}
+
+	@Override
+	public Object getValueAt(int rowIndex, int columnIndex) {
+		Recipient r = recipientList.get(rowIndex);
+		
+		switch(columnIndex) {
+		case 0: 	return r.getEmail();
+		case 1: 	return r.getFirstName();
+		case 2: 	return r.getFirstSurname();
+		case 3: 	return r.getSecondSurname();
+		case 4: 	return r.getAccountType();
+		case 5: 	return r.getCompany();
+		case 6: 	return r.getRole();
+		case 7: 	return r.getNumberOfUsers();
+		case 8: 	return r.getBusinessArea();
+		case 9:		return r.getTelephoneNumber();
+		case 10:	return r.isActive();
+		default: return null;
+		}
+	}
+
+	@Override
+	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+		
+	}
+
+	@Override
+	public void addTableModelListener(TableModelListener l) {
+		tableModelListenerList.add(l);
+	}
+
+	@Override
+	public void removeTableModelListener(TableModelListener l) {
+		tableModelListenerList.remove(l);
+	}
+
+}

@@ -1,0 +1,17 @@
+package alex.lopez.ve.tbm.view;
+
+import javax.swing.JPanel;
+
+import alex.lopez.ve.tbm.interfaces.Initialisable;
+
+public class TBMRecipientPanel extends JPanel implements Initialisable {
+
+	private static final long serialVersionUID = -8010014351508099945L;
+
+	@Override
+	public void initialise() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

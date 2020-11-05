@@ -2,8 +2,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>alex.lopez.ve</groupId>
-	<artifactId>template-batch-mailer</artifactId>
+	<groupId>alex.lopez.vega</groupId>
+	<artifactId>tbm</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Template Batch Mailer</name>
 	<description>Sends a template email to various recipients based on data provided in an Excel sheet</description>
@@ -30,5 +30,4 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
-
 </project>

@@ -1,0 +1,9 @@
+package alex.lopez.ve.tbm.launcher;
+
+public class Launcher {
+	
+	public static void main(String[] args) {
+		
+	}
+	
+}

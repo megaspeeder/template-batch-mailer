@@ -1,0 +1,33 @@
+package alex.lopez.ve.tbm.control;
+
+import java.io.File;
+
+import alex.lopez.ve.tbm.interfaces.IControllerAccess;
+import alex.lopez.ve.tbm.model.TBMModel;
+
+public class TBMController implements IControllerAccess {
+
+	private TBMModel model;
+
+	public TBMController() {
+		TBMModel model = new TBMModel();
+	}
+
+	@Override
+	public void loadTemplate(File file) {
+		
+	}
+
+	@Override
+	public void loadRecipients(File file) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void scheduleExit() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

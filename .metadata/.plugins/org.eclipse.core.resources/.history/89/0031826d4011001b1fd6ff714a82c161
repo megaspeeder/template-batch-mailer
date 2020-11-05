@@ -1,0 +1,27 @@
+package alex.lopez.ve.tbm.view;
+
+import java.awt.Component;
+
+import javax.swing.JCheckBox;
+import javax.swing.JList;
+import javax.swing.ListCellRenderer;
+
+public class CheckboxListCellRenderer<E> extends JCheckBox implements ListCellRenderer<E> {
+
+	private static final long serialVersionUID = 3068620004372212746L;
+
+	public Component getListCellRendererComponent(JList<E> list, Object value, int index, 
+            boolean isSelected, boolean cellHasFocus) {
+
+        setComponentOrientation(list.getComponentOrientation());
+        setFont(list.getFont());
+        setBackground(list.getBackground());
+        setForeground(list.getForeground());
+        setSelected(isSelected);
+        setEnabled(list.isEnabled());
+
+        setText(value == null ? "" : value.toString());  
+
+        return this;
+    }
+}

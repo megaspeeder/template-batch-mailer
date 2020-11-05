@@ -1,0 +1,29 @@
+package alex.lopez.ve.tbm.view;
+
+import javax.swing.JList;
+import javax.swing.JPanel;
+
+import alex.lopez.ve.tbm.interfaces.Initialisable;
+import alex.lopez.ve.tbm.model.Recipient;
+
+public class TBMRecipientPanel extends JPanel implements Initialisable {
+
+	private static final long serialVersionUID = -8010014351508099945L;
+
+	private JList<Recipient> recipientList;
+	
+	public TBMRecipientPanel() {
+		initialise();
+	}
+	
+	@Override
+	public void initialise() {
+		recipientList = new JList<Recipient>();
+		recipientList.setCellRenderer(new CheckboxListCellRenderer<Recipient>());
+		
+		recipientList.add(new Recipient("John"));
+		
+		add(recipientList);
+	}
+
+}

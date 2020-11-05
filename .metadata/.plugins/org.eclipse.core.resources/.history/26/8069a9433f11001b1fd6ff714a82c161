@@ -1,0 +1,12 @@
+package alex.lopez.ve.tbm.view;
+
+import javax.swing.JPanel;
+
+public class TBMButtonPanel extends JPanel {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3115446816541162887L;
+
+}

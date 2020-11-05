@@ -1,0 +1,25 @@
+package alex.lopez.ve.tbm.view;
+
+import javax.swing.JPanel;
+import javax.swing.JTable;
+
+import alex.lopez.ve.tbm.interfaces.Initialisable;
+
+public class TBMRecipientPanel extends JPanel implements Initialisable {
+
+	private static final long serialVersionUID = -8010014351508099945L;
+	
+	public TBMRecipientPanel() {
+		initialise();
+	}
+	
+	@Override
+	public void initialise() {
+		JTable table = new JTable(new RecipientTableModel());
+		
+		
+		
+		add(table);
+	}
+
+}

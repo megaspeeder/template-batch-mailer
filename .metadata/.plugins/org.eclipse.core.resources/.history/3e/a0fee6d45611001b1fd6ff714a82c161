@@ -1,0 +1,81 @@
+package alex.lopez.ve.tbm.view;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableModel;
+
+import org.apache.commons.math3.util.Pair;
+
+import alex.lopez.ve.tbm.model.Recipient;
+
+public class RecipientTableModel implements TableModel {
+
+	private static final String[] COLUMN_NAMES = { "Email", "First Name", "First Surname", "Second Surname",
+			"Account Type", "Company", "Role", "Number of Users", "Business Area", "Telephone Number", "Enabled" };
+
+	private List<Recipient> recipientList;
+	private List<TableModelListener> tableModelListenerList;
+
+	public RecipientTableModel() {
+		recipientList = new ArrayList<Recipient>();
+		tableModelListenerList = new LinkedList<TableModelListener>();
+
+		recipientList.add(new Recipient("a", "b", "c", "d", "e", "f", "g", 1, "i", "j", true));
+		recipientList.add(new Recipient("a", "b", "c", "d", "e", "f", "g", 1, "i", "j", true));
+		recipientList.add(new Recipient("a", "b", "c", "d", "e", "f", "g", 1, "i", "j", true));
+		recipientList.add(new Recipient("a", "b", "c", "d", "e", "f", "g", 1, "i", "j", true));
+		recipientList.add(new Recipient("a", "b", "c", "d", "e", "f", "g", 1, "i", "j", true));
+	}
+
+	@Override
+	public int getRowCount() {
+		return recipientList.size();
+	}
+
+	@Override
+	public int getColumnCount() {
+		return COLUMN_NAMES.length;
+	}
+
+	@Override
+	public String getColumnName(int columnIndex) {
+		return COLUMN_NAMES[columnIndex];
+	}
+
+	@Override
+	public Class<?> getColumnClass(int columnIndex) {
+		return String.class;
+	}
+
+	@Override
+	public boolean isCellEditable(int rowIndex, int columnIndex) {
+		return false;
+	}
+
+	@Override
+	public Object getValueAt(int rowIndex, int columnIndex) {
+		return COLUMN_NAME_FUNCTION_MAP.get(COLUMN_NAMES[columnIndex]).getFirst().get(recipientList.get(rowIndex));
+	}
+
+	@Override
+	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+		COLUMN_NAME_FUNCTION_MAP.get(COLUMN_NAMES[columnIndex]).getSecond().set(recipientList.get(rowIndex),
+				(String) aValue);
+	}
+
+	@Override
+	public void addTableModelListener(TableModelListener l) {
+		tableModelListenerList.add(l);
+	}
+
+	@Override
+	public void removeTableModelListener(TableModelListener l) {
+		tableModelListenerList.remove(l);
+	}
+
+}

@@ -1,0 +1,21 @@
+package alex.lopez.ve.tbm.view;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
+import alex.lopez.ve.tbm.interfaces.Initialisable;
+
+public class TBMButtonPanel extends JPanel implements Initialisable {
+	
+	private static final long serialVersionUID = 3115446816541162887L;
+
+	public TBMButtonPanel() {
+		initialise();
+	}
+	
+	@Override
+	public void initialise() {
+		JButton cancelButton = new JButton();
+	}
+
+}

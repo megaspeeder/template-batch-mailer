@@ -1,0 +1,7 @@
+package alex.lopez.ve.tbm.model;
+
+public class Recipient {
+
+	private String email;
+
+}

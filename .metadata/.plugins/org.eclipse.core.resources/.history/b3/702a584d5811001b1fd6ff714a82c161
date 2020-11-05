@@ -1,0 +1,146 @@
+package alex.lopez.ve.tbm.view;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableModel;
+
+import alex.lopez.ve.tbm.model.Recipient;
+
+public class RecipientTableModel implements TableModel {
+
+	private static final String[] COLUMN_NAMES = { "Email", "First Name", "First Surname", "Second Surname",
+			"Account Type", "Company", "Role", "Number of Users", "Business Area", "Telephone Number", "Enabled" };
+
+	private List<Recipient> recipientList;
+	private List<TableModelListener> tableModelListenerList;
+
+	public RecipientTableModel() {
+		recipientList = new ArrayList<Recipient>();
+		tableModelListenerList = new LinkedList<TableModelListener>();
+
+		recipientList.add(new Recipient("a", "b", "c", "d", "e", "f", "g", 1, "i", "j", true));
+		recipientList.add(new Recipient("a", "b", "c", "d", "e", "f", "g", 1, "i", "j", true));
+		recipientList.add(new Recipient("a", "b", "c", "d", "e", "f", "g", 1, "i", "j", true));
+		recipientList.add(new Recipient("a", "b", "c", "d", "e", "f", "g", 1, "i", "j", true));
+		recipientList.add(new Recipient("a", "b", "c", "d", "e", "f", "g", 1, "i", "j", true));
+	}
+
+	@Override
+	public int getRowCount() {
+		return recipientList.size();
+	}
+
+	@Override
+	public int getColumnCount() {
+		return COLUMN_NAMES.length;
+	}
+
+	@Override
+	public String getColumnName(int columnIndex) {
+		return COLUMN_NAMES[columnIndex];
+	}
+
+	@Override
+	public Class<?> getColumnClass(int columnIndex) {
+		switch (columnIndex) {
+		case 0:
+		case 1:
+		case 2:
+		case 3:
+		case 4:
+		case 5:
+		case 6:
+		case 8:
+		case 9:
+			return String.class;
+		case 7:
+			return Integer.class;
+		case 10:
+			return Boolean.class;
+		default:
+			return null;
+		}
+	}
+
+	@Override
+	public boolean isCellEditable(int rowIndex, int columnIndex) {
+		return true;
+	}
+
+	@Override
+	public Object getValueAt(int rowIndex, int columnIndex) {
+		Recipient r = recipientList.get(rowIndex);
+
+		switch (columnIndex) {
+		case 0:
+			return r.getEmail();
+		case 1:
+			return r.getFirstName();
+		case 2:
+			return r.getFirstSurname();
+		case 3:
+			return r.getSecondSurname();
+		case 4:
+			return r.getAccountType();
+		case 5:
+			return r.getCompany();
+		case 6:
+			return r.getRole();
+		case 7:
+			return r.getNumberOfUsers();
+		case 8:
+			return r.getBusinessArea();
+		case 9:
+			return r.getTelephoneNumber();
+		case 10:
+			return r.isActive();
+		default:
+			return null;
+		}
+	}
+
+	@Override
+	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+		Recipient r = recipientList.get(rowIndex);
+
+		switch (columnIndex) {
+		case 0:
+			r.setEmail((String) aValue);
+		case 1:
+			r.setFirstName((String) aValue);
+		case 2:
+			r.setFirstSurname((String) aValue);
+		case 3:
+			r.setSecondSurname((String) aValue);
+		case 4:
+			r.setAccountType((String) aValue);
+		case 5:
+			r.setCompany((String) aValue);
+		case 6:
+			r.setRole((String) aValue);
+		case 7:
+			r.setNumberOfUsers(Integer.parseInt((String) aValue));
+		case 8:
+			r.setBusinessArea((String) aValue);
+		case 9:
+			r.setTelephoneNumber((String) aValue);
+		case 10:
+			r.setIsActive(Boolean.parseBoolean((String) aValue));
+		default:
+		}
+	}
+
+	@Override
+	public void addTableModelListener(TableModelListener l) {
+		tableModelListenerList.add(l);
+	}
+
+	@Override
+	public void removeTableModelListener(TableModelListener l) {
+		tableModelListenerList.remove(l);
+	}
+
+}

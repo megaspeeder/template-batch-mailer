@@ -1,0 +1,11 @@
+package alex.lopez.ve.tbm.interfaces;
+
+import java.io.File;
+
+public interface IControllerAccess {
+
+	void loadTemplate(File file);
+
+	void loadRecipients(File file);
+
+}

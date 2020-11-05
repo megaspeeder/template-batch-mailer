@@ -1,0 +1,5 @@
+package alex.lopez.ve.tbm.model;
+
+public class Recipient {
+
+}

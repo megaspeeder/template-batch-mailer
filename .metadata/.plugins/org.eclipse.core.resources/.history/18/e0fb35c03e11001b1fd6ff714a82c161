@@ -1,0 +1,34 @@
+package alex.lopez.ve.tbm.view;
+
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JSeparator;
+
+import alex.lopez.ve.tbm.interfaces.Initialisable;
+
+public class TBMMenuBar extends JMenuBar implements Initialisable {
+
+	private static final long serialVersionUID = 6527668553010898685L;
+
+	public TBMMenuBar() {
+		initialise();
+	}
+
+	@Override
+	public void initialise() {
+		JMenu menu = new JMenu("File");
+		
+		JMenuItem loadRecipientsMI = new JMenuItem("Load recipients file...");
+		JMenuItem loadTempalteMI = new JMenuItem("Load template file...");
+		JMenuItem exitMI = new JMenuItem("Exit");
+		
+		menu.add(loadRecipientsMI);
+		menu.add(loadtemplateMI);
+		menu.add(new JSeparator(JSeparator.HORIZONTAL));
+		menu.add(exitMI);
+		
+		add(menu);
+	}
+	
+}

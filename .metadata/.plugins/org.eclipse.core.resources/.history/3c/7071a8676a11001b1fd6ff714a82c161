@@ -1,0 +1,128 @@
+package alex.lopez.ve.tbm.model;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+public class TBMModel {
+
+	private static String[] _sortedHeader;
+
+	private List<Recipient> recipientList;
+	private Template template;
+
+	public TBMModel() {
+		recipientList = new LinkedList<Recipient>();
+	}
+
+	public void addRecipient(Recipient r) {
+		if (r != null)
+			recipientList.add(r);
+	}
+
+	public void removeRecipient(Recipient r) {
+		if (r != null)
+			recipientList.remove(r);
+	}
+
+	public void loadTemplate(File file) {
+
+	}
+
+	public void loadRecipients(File file) {
+		if (file == null)
+			throw new IllegalArgumentException("File is null");
+
+		String fileExtension = file.getName().split(".")[1];
+		FileInputStream fis;
+
+		try {
+			Workbook workbook;
+			fis = new FileInputStream(file);
+
+			if (fileExtension.equals(".xls")) {
+				workbook = new HSSFWorkbook(fis);
+			} else if (fileExtension.equals(".xlsx")) {
+				workbook = new XSSFWorkbook(fis);
+			} else {
+				throw new IllegalArgumentException("Unknown Excel file extension");
+			}
+
+			Sheet sheet = workbook.getSheetAt(0);
+
+			Row headerRow = sheet.getRow(0);
+
+			sortHeader(headerRow);
+
+			workbook.close();
+			fis.close();
+
+		} catch (Exception e) {
+
+		}
+	}
+
+	private void sortHeader(Row headerRow) {
+		for (int i = headerRow.getFirstCellNum(), j = 0; i < headerRow.getLastCellNum(); ++i) {
+			String value = headerRow.getCell(i).getStringCellValue();
+			
+			switch (value) {
+			case "Email": {
+				
+			}
+				break;
+			case "First Name": {
+
+			}
+				break;
+			case "First Surname": {
+
+			}
+				break;
+			case "Second Surname": {
+
+			}
+				break;
+			case "Account Type": {
+
+			}
+				break;
+			case "Company": {
+
+			}
+				break;
+			case "Role": {
+
+			}
+				break;
+			case "Number of Users": {
+
+			}
+				break;
+			case "Business Area": {
+
+			}
+				break;
+			case "Telephone Number": {
+
+			}
+				break;
+			}
+		}
+	}
+
+	public boolean hasTemplate() {
+		return template != null;
+	}
+
+	public boolean hasRecipients() {
+		return !recipientList.isEmpty();
+	}
+}

@@ -1,0 +1,13 @@
+package alex.lopez.ve.tbm.control;
+
+import alex.lopez.ve.tbm.model.TBMModel;
+
+public class TBMController {
+
+	private TBMModel model;
+	
+	public TBMController() {
+		TBMModel model = new TBMModel();
+	}
+	
+}

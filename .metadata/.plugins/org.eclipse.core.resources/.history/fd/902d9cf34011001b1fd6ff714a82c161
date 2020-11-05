@@ -1,0 +1,12 @@
+package alex.lopez.ve.tbm.model;
+
+public class Recipient {
+
+	private String name;
+
+	public Recipient(String name) {
+		super();
+		this.name = name;
+	}
+
+}

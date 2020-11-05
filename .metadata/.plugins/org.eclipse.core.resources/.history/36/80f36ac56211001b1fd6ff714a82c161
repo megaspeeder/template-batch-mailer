@@ -1,0 +1,59 @@
+package alex.lopez.ve.tbm.control;
+
+import java.io.File;
+import java.io.FileInputStream;
+
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import alex.lopez.ve.tbm.interfaces.IControllerAccess;
+import alex.lopez.ve.tbm.model.TBMModel;
+
+public class TBMController implements IControllerAccess {
+
+	private TBMModel model;
+
+	public TBMController() {
+		model = new TBMModel();
+	}
+
+	@Override
+	public void loadTemplate(File file) {
+		if (file == null)
+			throw new IllegalArgumentException("File is null");
+
+		String fileExtension = file.getName().split(".")[1];
+		FileInputStream fis;
+
+		try {
+			Workbook workbook;
+			fis = new FileInputStream(file);
+
+			if (fileExtension.equals(".xls")) {
+
+			} else if (fileExtension.equals(".xlsx")) {
+				workbook = new XSSFWorkbook(fis);
+			} else {
+				throw new IllegalArgumentException("Unknown Excel file extension");
+			}
+
+			fis.close();
+
+		} catch (Exception e) {
+
+		}
+	}
+
+	@Override
+	public void loadRecipients(File file) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void scheduleExit() {
+		// TODO Auto-generated method stub
+
+	}
+
+}

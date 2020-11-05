@@ -1,0 +1,8 @@
+package alex.lopez.ve.tbm.view;
+
+import javax.swing.JCheckBox;
+import javax.swing.ListCellRenderer;
+
+public class CheckboxListCellRenderer extends JCheckBox implements ListCellRenderer<E> {
+
+}

@@ -1,0 +1,152 @@
+package alex.lopez.ve.tbm.view;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableModel;
+
+import org.apache.commons.math3.util.Pair;
+
+import alex.lopez.ve.tbm.model.Recipient;
+
+public class RecipientTableModel implements TableModel {
+
+	@FunctionalInterface
+	private interface GetFunction<T, U> {
+		U get(T parameter);
+	}
+
+	@FunctionalInterface
+	private interface SetFunction<T, U> {
+		void set(T a, U b);
+	}
+
+	private static final String[] COLUMN_NAMES = { "Email", "First Name", "First Surname", "Second Surname",
+			"Account Type", "Company", "Role", "Number of Users", "Business Area", "Telephone Number", "Enabled" };
+	private static final Map<String, Pair<GetFunction<Recipient, String>, SetFunction<Recipient, String>>> COLUMN_NAME_FUNCTION_MAP;
+
+	static {
+		COLUMN_NAME_FUNCTION_MAP = new HashMap<>();
+
+		COLUMN_NAME_FUNCTION_MAP.put(COLUMN_NAMES[0], new Pair<>((Recipient r) -> {
+			return r.getEmail();
+		}, (Recipient r, String s) -> {
+			r.setEmail(s);
+		}));
+		COLUMN_NAME_FUNCTION_MAP.put(COLUMN_NAMES[1], new Pair<>((Recipient r) -> {
+			return r.getFirstName();
+		}, (Recipient r, String s) -> {
+			r.setFirstName(s);
+		}));
+		COLUMN_NAME_FUNCTION_MAP.put(COLUMN_NAMES[2], new Pair<>((Recipient r) -> {
+			return r.getFirstSurname();
+		}, (Recipient r, String s) -> {
+			r.setFirstSurname(s);
+		}));
+		COLUMN_NAME_FUNCTION_MAP.put(COLUMN_NAMES[3], new Pair<>((Recipient r) -> {
+			return r.getSecondSurname();
+		}, (Recipient r, String s) -> {
+			r.setSecondSurname(s);
+		}));
+		COLUMN_NAME_FUNCTION_MAP.put(COLUMN_NAMES[4], new Pair<>((Recipient r) -> {
+			return r.getAccountType();
+		}, (Recipient r, String s) -> {
+			r.setAccountType(s);
+		}));
+		COLUMN_NAME_FUNCTION_MAP.put(COLUMN_NAMES[5], new Pair<>((Recipient r) -> {
+			return r.getCompany();
+		}, (Recipient r, String s) -> {
+			r.setCompany(s);
+		}));
+		COLUMN_NAME_FUNCTION_MAP.put(COLUMN_NAMES[6], new Pair<>((Recipient r) -> {
+			return r.getRole();
+		}, (Recipient r, String s) -> {
+			r.setRole(s);
+		}));
+		COLUMN_NAME_FUNCTION_MAP.put(COLUMN_NAMES[7], new Pair<>((Recipient r) -> {
+			return Integer.toString(r.getNumberOfUsers());
+		}, (Recipient r, String s) -> {
+			r.setNumberOfUsers(Integer.parseInt(s));
+		}));
+		COLUMN_NAME_FUNCTION_MAP.put(COLUMN_NAMES[8], new Pair<>((Recipient r) -> {
+			return r.getBusinessArea();
+		}, (Recipient r, String s) -> {
+			r.setBusinessArea(s);
+		}));
+		COLUMN_NAME_FUNCTION_MAP.put(COLUMN_NAMES[9], new Pair<>((Recipient r) -> {
+			return r.getTelephoneNumber();
+		}, (Recipient r, String s) -> {
+			r.setTelephoneNumber(s);
+		}));
+		COLUMN_NAME_FUNCTION_MAP.put(COLUMN_NAMES[10], new Pair<>((Recipient r) -> {
+			return Boolean.toString(r.isActive());
+		}, (Recipient r, String s) -> {
+			r.setIsActive(Boolean.parseBoolean(s));
+		}));
+	}
+
+	private List<Recipient> recipientList;
+	private List<TableModelListener> tableModelListenerList;
+
+	public RecipientTableModel() {
+		recipientList = new ArrayList<Recipient>();
+		tableModelListenerList = new LinkedList<TableModelListener>();
+
+		recipientList.add(new Recipient("a", "b", "c", "d", "e", "f", "g", 1, "i", "j"));
+		recipientList.add(new Recipient("a", "b", "c", "d", "e", "f", "g", 1, "i", "j"));
+		recipientList.add(new Recipient("a", "b", "c", "d", "e", "f", "g", 1, "i", "j"));
+		recipientList.add(new Recipient("a", "b", "c", "d", "e", "f", "g", 1, "i", "j"));
+		recipientList.add(new Recipient("a", "b", "c", "d", "e", "f", "g", 1, "i", "j"));
+	}
+
+	@Override
+	public int getRowCount() {
+		return recipientList.size();
+	}
+
+	@Override
+	public int getColumnCount() {
+		return COLUMN_NAMES.length;
+	}
+
+	@Override
+	public String getColumnName(int columnIndex) {
+		return COLUMN_NAMES[columnIndex];
+	}
+
+	@Override
+	public Class<?> getColumnClass(int columnIndex) {
+		return String.class;
+	}
+
+	@Override
+	public boolean isCellEditable(int rowIndex, int columnIndex) {
+		return false;
+	}
+
+	@Override
+	public Object getValueAt(int rowIndex, int columnIndex) {
+		return COLUMN_NAME_FUNCTION_MAP.get(COLUMN_NAMES[columnIndex]).getFirst().get(recipientList.get(rowIndex));
+	}
+
+	@Override
+	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+		COLUMN_NAME_FUNCTION_MAP.get(COLUMN_NAMES[columnIndex]).getSecond().set(recipientList.get(rowIndex),
+				(String) aValue);
+	}
+
+	@Override
+	public void addTableModelListener(TableModelListener l) {
+		tableModelListenerList.add(l);
+	}
+
+	@Override
+	public void removeTableModelListener(TableModelListener l) {
+		tableModelListenerList.remove(l);
+	}
+
+}

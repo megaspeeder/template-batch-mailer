@@ -1,0 +1,38 @@
+package alex.lopez.ve.tbm.view;
+
+import java.awt.BorderLayout;
+
+import javax.swing.JFrame;
+import javax.swing.JSplitPane;
+
+import alex.lopez.ve.tbm.interfaces.Initialisable;
+
+public class TBMWindow extends JFrame implements Initialisable {
+
+	private static final long serialVersionUID = -3424654641572932950L;
+
+	public TBMWindow() {
+		initialise();
+		prepareWindow();
+	}
+
+	@Override
+	public void initialise() {
+		setLayout(new BorderLayout());
+		
+		setJMenuBar(new TBMMenuBar());
+
+		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, new TBMRecipientPanel(), new TBMTemplatePanel());
+		TBMButtonPanel buttonPanel = new TBMButtonPanel();
+		
+				
+	}
+
+	private void prepareWindow() {	
+		pack();
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);
+	}
+	
+}

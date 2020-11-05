@@ -1,0 +1,38 @@
+package alex.lopez.ve.tbm.control;
+
+import java.io.File;
+import java.io.FileInputStream;
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import alex.lopez.ve.tbm.interfaces.IControllerAccess;
+import alex.lopez.ve.tbm.model.TBMModel;
+
+public class TBMController implements IControllerAccess {
+
+	private TBMModel model;
+
+	public TBMController() {
+		model = new TBMModel();
+	}
+
+	@Override
+	public void loadTemplate(File file) {
+		model.loadTemplate(file);
+	}
+
+	@Override
+	public void loadRecipients(File file) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void scheduleExit() {
+		// TODO Auto-generated method stub
+
+	}
+
+}

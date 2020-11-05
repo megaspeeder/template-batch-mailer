@@ -1,0 +1,31 @@
+package alex.lopez.ve.tbm.model;
+
+public class Recipient {
+
+	private String email;
+	private String firstName;
+	private String firstSurname;
+	private String secondSurname;
+	private String accountType;
+	private String company;
+	private String role;
+	private int numberOfUsers;
+	private String businessArea;
+	private String telephoneNumber;
+
+	public Recipient(String email, String firstName, String firstSurname, String secondSurname, String accountType,
+			String company, String role, int numberOfUsers, String businessArea, String telephoneNumber) {
+		super();
+		this.email = email;
+		this.firstName = firstName;
+		this.firstSurname = firstSurname;
+		this.secondSurname = secondSurname;
+		this.accountType = accountType;
+		this.company = company;
+		this.role = role;
+		this.numberOfUsers = numberOfUsers;
+		this.businessArea = businessArea;
+		this.telephoneNumber = telephoneNumber;
+	}
+
+}

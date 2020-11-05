@@ -1,0 +1,7 @@
+package alex.lopez.ve.tbm.view;
+
+import javax.swing.JPanel;
+
+public class TBMTemplatePanel extends JPanel {
+
+}

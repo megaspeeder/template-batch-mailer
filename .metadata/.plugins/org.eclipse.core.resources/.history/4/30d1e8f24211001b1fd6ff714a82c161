@@ -1,0 +1,15 @@
+package alex.lopez.ve.tbm.model;
+
+public class Recipient {
+
+	private String email;
+	private String firstName;
+	private String firstSurname;
+	private String secondSurname;
+	private String UNDEFINED;
+	private String company;
+	private String role;
+	private int numberOfUsers;
+	private String businessArea;
+	private String telephoneNumber;
+}
