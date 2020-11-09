@@ -38,7 +38,6 @@ public class View extends JFrame {
 			e.printStackTrace();
 		}
 
-
 		serializationListenerList = new LinkedList<SerializationListener>();
 		controller = new Controller();
 
@@ -90,7 +89,7 @@ public class View extends JFrame {
 
 		// Create parent and button panel
 		JSplitPane splitPanel = new JSplitPane(JSplitPane.VERTICAL_SPLIT, recipientPanel, templatePanel);
-		JPanel buttonPanel = new InfoPanel(controller);
+		JPanel buttonPanel = new InfoPanel(controller, templatePanel);
 
 		// Configure parent panel
 		splitPanel.setResizeWeight(0.5);

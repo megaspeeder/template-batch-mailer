@@ -31,7 +31,7 @@ public class LoadRecipientsMenuItem extends JMenuItem {
 		addActionListener((ActionEvent ae) -> {
 			if (ae.getSource() == this) {
 				JFileChooser fc = new JFileChooser(currentDir);
-
+				
 				int choice = fc.showDialog(null, "Load...");
 
 				if (choice == JFileChooser.APPROVE_OPTION) {

@@ -13,7 +13,6 @@ public class MenuBar extends JMenuBar {
 	private Controller controller;
 
 	public MenuBar(View view, Controller controller) {
-		super();
 		this.controller = controller;
 
 		init(view);
@@ -30,7 +29,7 @@ public class MenuBar extends JMenuBar {
 		JMenuItem loadRecipientsMI = new LoadRecipientsMenuItem(controller);
 		JMenuItem loadTemplateMI = new LoadTemplateMenuItem(controller);
 
-		JMenuItem mailQueueMI = new MailQueueMenuItem(view);
+		JMenuItem mailQueueMI = new MailQueueMenuItem(view, controller);
 
 		// Add menu items
 		fileMenu.add(loadRecipientsMI);

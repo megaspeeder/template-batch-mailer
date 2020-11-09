@@ -8,19 +8,22 @@ import javax.swing.JOptionPane;
 
 import alex.lopez.vega.controller.Controller;
 import alex.lopez.vega.model.Message;
+import alex.lopez.vega.view.TemplatePanel;
 
 public class SendButton extends JButton {
 	private static final long serialVersionUID = 1L;
 
-	public SendButton(Controller controller) {
+	public SendButton(Controller controller, TemplatePanel templatePanel) {
 		super("Send");
 
-		init(controller);
+		init(controller, templatePanel);
 	}
 
-	private void init(Controller controller) {
+	private void init(Controller controller, TemplatePanel templatePanel) {
 		addActionListener((ActionEvent ae) -> {
 			if (ae.getSource() == this) {
+				templatePanel.saveTemplate();
+
 				int choice = JOptionPane.showConfirmDialog(null, "Are you sure you would like to send this message?",
 						"Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 

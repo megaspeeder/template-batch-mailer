@@ -2,14 +2,23 @@ package alex.lopez.vega.view;
 
 import java.awt.BorderLayout;
 import java.awt.Point;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+
+import org.apache.poi.EncryptedDocumentException;
 
 import alex.lopez.vega.controller.Controller;
 import alex.lopez.vega.view.popups.columns.ColumnPopupMenu;
@@ -40,6 +49,29 @@ public class RecipientPanel extends JPanel {
 
 		add(new JScrollPane(table), BorderLayout.CENTER);
 		setBorder(BorderFactory.createTitledBorder("Recipients"));
+
+		setDropTarget(new DropTarget() {
+			private static final long serialVersionUID = 1L;
+
+			public synchronized void drop(DropTargetDropEvent evt) {
+				try {
+					evt.acceptDrop(DnDConstants.ACTION_COPY);
+					@SuppressWarnings("unchecked")
+					List<File> droppedFiles = (List<File>) evt.getTransferable()
+							.getTransferData(DataFlavor.javaFileListFlavor);
+
+					if (droppedFiles.size() >= 1) {
+						try {
+							controller.loadRecipients(droppedFiles.get(0));
+						} catch (EncryptedDocumentException | IOException e) {
+							Dialog.showErrorMessage(e.getMessage());
+						}
+					}
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+		});
 	}
 
 	private void addSelectionListeners() {

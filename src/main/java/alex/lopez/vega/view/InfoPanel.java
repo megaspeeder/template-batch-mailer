@@ -11,11 +11,11 @@ import alex.lopez.vega.view.buttons.SendButton;
 public class InfoPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
-	public InfoPanel(Controller controller) {
-		init(controller);
+	public InfoPanel(Controller controller, TemplatePanel templatePanel) {
+		init(controller, templatePanel);
 	}
 
-	private void init(Controller controller) {
+	private void init(Controller controller, TemplatePanel templatePanel) {
 		setLayout(new BorderLayout());
 
 		MailsPanel mailsPanel = new MailsPanel(controller);
@@ -24,7 +24,7 @@ public class InfoPanel extends JPanel {
 		controller.addMailLimiterListener(mailsPanel);
 
 		buttonContainer.add(new DeleteButton(controller));
-		buttonContainer.add(new SendButton(controller));
+		buttonContainer.add(new SendButton(controller, templatePanel));
 
 		add(buttonContainer, BorderLayout.EAST);
 		add(mailsPanel, BorderLayout.WEST);

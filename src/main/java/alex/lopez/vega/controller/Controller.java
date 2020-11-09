@@ -176,4 +176,16 @@ public class Controller {
 	public void setContent(String content) {
 		model.setContent(content);
 	}
+
+	public List<Message> getMessageQueue() {
+		return mailer.getMessageQueue();
+	}
+
+	public void removeMessage(Message message) {
+		mailer.removeMessage(message);
+	}
+
+	public void removeAllMessages() {
+		mailer.removeAllMessages();
+	}
 }

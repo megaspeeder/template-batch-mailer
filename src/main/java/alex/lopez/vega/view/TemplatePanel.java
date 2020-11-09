@@ -2,6 +2,7 @@ package alex.lopez.vega.view;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.List;
@@ -22,14 +23,17 @@ import alex.lopez.vega.view.listeners.ModelListener;
 public class TemplatePanel extends JPanel implements ModelListener {
 	private static final long serialVersionUID = 1L;
 
+	private Controller controller;
+
 	private JTextField subject;
 	private JTextArea content;
 
 	public TemplatePanel(Controller controller) {
-		init(controller);
+		this.controller = controller;
+		init();
 	}
 
-	private void init(Controller controller) {
+	private void init() {
 		setLayout(new BorderLayout());
 
 		subject = new JTextField();
@@ -60,6 +64,8 @@ public class TemplatePanel extends JPanel implements ModelListener {
 
 			}
 		});
+
+		content.setFont(new Font("Arial", Font.PLAIN, content.getFont().getSize()));
 
 		JLabel subjectLabel = new JLabel("Subject");
 		JLabel contentLabel = new JLabel("Content");
@@ -108,5 +114,10 @@ public class TemplatePanel extends JPanel implements ModelListener {
 	public void onTemplateChanged(Template template) {
 		subject.setText(template.getSubject());
 		content.setText(template.getContent());
+	}
+
+	public void saveTemplate() {
+		controller.setSubject(subject.getText());
+		controller.setContent(content.getText());
 	}
 }

@@ -10,6 +10,8 @@ import java.io.ObjectOutputStream;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.mail.Authenticator;
 import javax.mail.Message.RecipientType;
@@ -30,7 +32,7 @@ import alex.lopez.vega.view.Dialog;
 import alex.lopez.vega.view.listeners.MailLimiterListener;
 import alex.lopez.vega.view.listeners.SerializationListener;
 
-public class Mailer implements SerializationListener, MailLimiterListener {
+public class Mailer implements SerializationListener {
 	private LinkedList<Message> scheduledMessageList;
 	private MailLimiter mailLimiter;
 	private Properties properties;
@@ -46,8 +48,7 @@ public class Mailer implements SerializationListener, MailLimiterListener {
 		properties.put("mail.smtp.port", "" + DataSupply.PORT);
 		properties.put("mail.smtp.auth", "" + true);
 		properties.put("mail.smtp.ssl.enable", "true");
-		properties.put("mail.debug", "true");
-		
+
 		authenticator = new Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(DataSupply.USERNAME, DataSupply.PASSWORD);
@@ -73,14 +74,42 @@ public class Mailer implements SerializationListener, MailLimiterListener {
 		LinkedList<Message> enqueuedMessages = new LinkedList<Message>();
 
 		for (Recipient recipient : recipients) {
+			String personalisedContent = processContent(template.getContent(), recipient);
+
 			Message message = new Message(DataSupply.FROM_ADDRESS, getEmail(recipient), template.getSubject(),
-					template.getContent());
+					personalisedContent);
 
 			enqueuedMessages.addLast(message);
 			enqueueMessage(message);
 		}
 
 		return enqueuedMessages;
+	}
+
+	private String processContent(String content, Recipient recipient) {
+		StringBuffer sb = new StringBuffer();
+
+		boolean foundPattern = false;
+
+		Pattern p = Pattern.compile("\\{(.*?)\\}", Pattern.DOTALL);
+		Matcher m = p.matcher(content);
+
+		while (m.find()) {
+			foundPattern = true;
+
+			String columnVariable = m.group(1);
+			String replacement = recipient.get(columnVariable);
+
+			if (replacement == null)
+				replacement = "";
+
+			m.appendReplacement(sb, replacement);
+		}
+
+		if (!foundPattern)
+			return content;
+
+		return sb.toString();
 	}
 
 	private String getEmail(Recipient recipient) {
@@ -132,7 +161,7 @@ public class Mailer implements SerializationListener, MailLimiterListener {
 		MimeMessage mimeMessage = new MimeMessage(session);
 
 		mimeMessage.setFrom(new InternetAddress(message.getFromAddress()));
-		mimeMessage.setRecipient(RecipientType.BCC, new InternetAddress(message.getToAddress()));
+		mimeMessage.setRecipient(RecipientType.BCC, new InternetAddress(message.getToAddress(), true));
 		mimeMessage.setSubject(message.getSubject());
 		mimeMessage.setContent(message.getContent(), "text/html;charset=UTF-8");
 
@@ -212,8 +241,15 @@ public class Mailer implements SerializationListener, MailLimiterListener {
 		return mailLimiter;
 	}
 
-	@Override
-	public void onNumSentMailsChanged(int mailRateLimit, int numSentMails) {
-		sendMessagesUntilLimit();
+	public List<Message> getMessageQueue() {
+		return scheduledMessageList;
+	}
+
+	public void removeMessage(Message message) {
+		scheduledMessageList.remove(message);
+	}
+
+	public void removeAllMessages() {
+		scheduledMessageList.removeAll(scheduledMessageList);
 	}
 }

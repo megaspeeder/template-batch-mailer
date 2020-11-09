@@ -1,5 +1,7 @@
 package alex.lopez.vega.util;
 
+import java.io.File;
+
 public class FileUtils {
 
 	public static String getWorkingDirectory() {
@@ -22,6 +24,14 @@ public class FileUtils {
 		// folder.
 
 		return workingDirectory;
+	}
+
+	public static void setupWorkingDirectory() {
+		String workDir = getWorkingDirectory();
+
+		File data = new File(workDir + "/template-batch-mailer/data");
+
+		data.mkdirs();
 	}
 
 }
